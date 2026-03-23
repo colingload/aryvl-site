@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aryvl — The Pencil</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+      :root {
+        --bg: #08090c;
+        --surface: #0e1015;
+        --card: #12151c;
+        --border: #1a1d26;
+        --green: #3db870;
+        --text-1: #e8eaef;
+        --text-2: #a0a8bc;
+        --text-3: #7d84a0;
+        --text-4: #525972;
+        --serif: 'Source Serif 4', Georgia, serif;
+        --mono: 'IBM Plex Mono', monospace;
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg);
+        font-family: 'IBM Plex Sans', sans-serif;
+        color: var(--text-1);
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 24px;
+      }
+      .back-link {
+        position: fixed;
+        top: 20px;
+        left: 24px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--green);
+        text-decoration: none;
+        letter-spacing: 0.3px;
+        transition: opacity 0.2s;
+        z-index: 10;
+      }
+      .back-link:hover { opacity: 0.7; }
+      .brand { color: var(--text-1); font-weight: 700; white-space: nowrap; }
+      .brand em { font-style: normal; color: var(--green); }
+      .poem-section {
+        max-width: 720px;
+        padding: 64px 56px 56px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background: rgba(18, 21, 28, 0.7);
+        border: 1px solid rgba(61, 184, 112, 0.12);
+        border-radius: 16px;
+        box-shadow:
+          0 0 60px rgba(61, 184, 112, 0.06),
+          0 0 120px rgba(61, 184, 112, 0.03);
+        backdrop-filter: blur(12px);
+        animation: fadeUp 0.8s ease both;
+      }
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .poem-text {
+        font-family: var(--serif);
+        font-size: 19px;
+        font-style: italic;
+        color: var(--text-2);
+        line-height: 2.2;
+        max-width: 480px;
+        margin-bottom: 28px;
+      }
+      .poem-text .line { display: block; }
+      .poem-text .line-cause {
+        display: block;
+        color: var(--text-4);
+        font-size: 15px;
+        margin-left: 24px;
+        text-align: left;
+      }
+      .poem-attr {
+        font-size: 12px;
+        color: var(--text-4);
+        letter-spacing: 1.5px;
+        margin-bottom: 36px;
+        text-transform: uppercase;
+      }
+      .poem-bridge {
+        font-size: 15px;
+        color: var(--text-3);
+        line-height: 1.85;
+        max-width: 600px;
+        border-top: 1px solid var(--border);
+        padding-top: 32px;
+      }
+      @media (max-width: 640px) {
+        .poem-section { padding: 40px 28px 36px; }
+        .poem-text { font-size: 17px; }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="steadystart-initiative-v2.html" class="back-link">← Back to SteadyStart</a>
+
+    <div class="poem-section">
+      <div class="poem-text">
+        <span class="line">I woke myself up</span>
+        <span class="line-cause">Because we ain't got an alarm clock</span>
+        <span class="line">Dug in the dirty clothes basket,</span>
+        <span class="line-cause">Cause ain't nobody washed my uniform</span>
+        <span class="line">Brushed my hair and teeth in the dark,</span>
+        <span class="line-cause">Cause the lights ain't on</span>
+        <span class="line">Even got my baby sister ready,</span>
+        <span class="line-cause">Cause my mama wasn't home.</span>
+        <span class="line">Got us both to school on time,</span>
+        <span class="line-cause">To eat us a good breakfast.</span>
+        <span class="line">Then when I got to class the teacher fussed</span>
+        <span class="line-cause">Cause I ain't got no pencil.</span>
+      </div>
+      <div class="poem-attr">— Joshua T. Dickerson, Baltimore student</div>
+      <div class="poem-bridge">
+        A child overcame every obstacle between him and the classroom — and the system noticed only
+        the one thing he couldn't fix alone. That child grows up. The alarm clock becomes a car that
+        won't start. The uniform becomes a shift schedule no bus can reach. The dark house becomes a
+        paycheck that doesn't cover both rent and repairs. And the pencil? The pencil becomes a
+        missed shift — the only thing the employer sees.
+        <span class="brand">Ar<em>y</em>vl</span> is built for the adult version of this poem.
+      </div>
+    </div>
+  </body>
+</html>
