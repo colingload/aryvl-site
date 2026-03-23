@@ -11755,6 +11755,92 @@
     </section>
 
     <div class="divider"></div>
+
+    <!-- ╔═══════════════════════════════════════╗
+     ║  TALK WITH MAYA                        ║
+     ╚═══════════════════════════════════════╝ -->
+    <div class="section-alt">
+      <div class="section-inner" style="text-align: center; max-width: 560px; margin: 0 auto">
+        <div class="eyebrow">Experience It</div>
+        <h2 class="section-title" style="font-size: clamp(24px, 4vw, 36px)">
+          Talk with Maya.
+        </h2>
+        <p style="font-size: 14px; color: var(--text-3); line-height: 1.75; margin-bottom: 32px">
+          Enter your name and number. Maya will call you in about 30 seconds — same voice,
+          same tone the workers in our program hear every week. The call takes about 2 minutes.
+        </p>
+
+        <form id="mayaDemoForm" onsubmit="return handleMayaDemo(event)" style="display: flex; flex-direction: column; gap: 12px; max-width: 360px; margin: 0 auto">
+          <input
+            type="text"
+            id="demoName"
+            placeholder="Your first name"
+            required
+            style="
+              background: var(--card);
+              border: 1px solid var(--border);
+              border-radius: 8px;
+              padding: 14px 16px;
+              color: var(--text-1);
+              font-size: 15px;
+              font-family: inherit;
+              outline: none;
+              transition: border-color 0.2s;
+            "
+            onfocus="this.style.borderColor='var(--green)'"
+            onblur="this.style.borderColor='var(--border)'"
+          />
+          <input
+            type="tel"
+            id="demoPhone"
+            placeholder="Phone number"
+            required
+            style="
+              background: var(--card);
+              border: 1px solid var(--border);
+              border-radius: 8px;
+              padding: 14px 16px;
+              color: var(--text-1);
+              font-size: 15px;
+              font-family: inherit;
+              outline: none;
+              transition: border-color 0.2s;
+            "
+            onfocus="this.style.borderColor='var(--green)'"
+            onblur="this.style.borderColor='var(--border)'"
+          />
+          <button
+            type="submit"
+            id="mayaBtn"
+            style="
+              background: var(--green);
+              color: #000;
+              border: none;
+              border-radius: 8px;
+              padding: 14px 24px;
+              font-size: 15px;
+              font-weight: 700;
+              cursor: pointer;
+              transition: opacity 0.2s;
+              font-family: inherit;
+            "
+            onmouseover="this.style.opacity='0.85'"
+            onmouseout="this.style.opacity='1'"
+          >
+            Talk with Maya
+          </button>
+        </form>
+
+        <div id="mayaStatus" style="margin-top: 20px; font-size: 13px; color: var(--text-3); display: none"></div>
+
+        <p style="font-size: 11px; color: var(--text-4); margin-top: 20px; line-height: 1.6">
+          We'll call you once to demo Maya. Your number won't be stored or shared.
+          This is a short demonstration — not an enrollment.
+        </p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
     <!-- ╔═══════════════════════════════════════╗
      ║  CTA                                   ║
      ╚═══════════════════════════════════════╝ -->
@@ -11929,6 +12015,54 @@
     </footer>
 
     <script>
+      function handleMayaDemo(e) {
+        e.preventDefault();
+        var name = document.getElementById('demoName').value.trim();
+        var phone = document.getElementById('demoPhone').value.trim();
+        var btn = document.getElementById('mayaBtn');
+        var status = document.getElementById('mayaStatus');
+
+        if (!name || !phone) return false;
+
+        // Disable button
+        btn.disabled = true;
+        btn.textContent = 'Calling you...';
+        btn.style.opacity = '0.6';
+        status.style.display = 'block';
+        status.textContent = 'Maya is dialing your number — pick up when you see a call from a Maryland number.';
+
+        // n8n webhook that triggers ElevenLabs outbound call for website demos
+        var webhookUrl = 'https://niloc29.app.n8n.cloud/webhook/maya-demo';
+
+        fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            caller_name: name,
+            phone_number: phone,
+            source: 'website_demo',
+            is_test: false
+          })
+        })
+        .then(function(res) {
+          if (res.ok) {
+            status.textContent = 'Call initiated! Maya should be calling you in about 30 seconds.';
+            status.style.color = 'var(--green)';
+          } else {
+            throw new Error('Request failed');
+          }
+        })
+        .catch(function() {
+          status.textContent = 'Something went wrong — please try again or email colin@aryvl.com';
+          status.style.color = 'var(--red)';
+          btn.disabled = false;
+          btn.textContent = 'Talk with Maya';
+          btn.style.opacity = '1';
+        });
+
+        return false;
+      }
+
       function toggleCase(key) {
         var row = document.getElementById('row-' + key);
         var panel = document.getElementById('expand-' + key);
