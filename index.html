@@ -11793,7 +11793,7 @@
           <input
             type="tel"
             id="demoPhone"
-            placeholder="Your phone number"
+            placeholder="(555) 123-4567"
             required
             style="
               background: var(--card);
@@ -12019,11 +12019,26 @@
       function handleMayaDemo(e) {
         e.preventDefault();
         var name = document.getElementById('demoName').value.trim();
-        var phone = document.getElementById('demoPhone').value.trim();
+        var rawPhone = document.getElementById('demoPhone').value.trim();
         var btn = document.getElementById('mayaBtn');
         var status = document.getElementById('mayaStatus');
 
-        if (!name || !phone) return false;
+        if (!name || !rawPhone) return false;
+
+        // Strip everything except digits
+        var digits = rawPhone.replace(/\D/g, '');
+        // If they entered 10 digits, add +1
+        if (digits.length === 10) digits = '1' + digits;
+        // If they entered 11 starting with 1, keep it
+        // Always prefix with +
+        var phone = '+' + digits;
+
+        if (digits.length !== 11) {
+          status.style.display = 'block';
+          status.textContent = 'Please enter a valid 10-digit US phone number.';
+          status.style.color = 'var(--red)';
+          return false;
+        }
 
         // Disable button
         btn.disabled = true;
