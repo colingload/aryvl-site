@@ -11766,7 +11766,7 @@
           Talk with Maya.
         </h2>
         <p style="font-size: 14px; color: var(--text-3); line-height: 1.75; margin-bottom: 32px">
-          Enter your name and number. Maya will call you in about 30 seconds — same voice,
+          Enter your name and number. Maya will call you immediately — same voice,
           same tone the workers in our program hear every week. The call takes about 2 minutes.
         </p>
 
@@ -12049,7 +12049,7 @@
         btn.textContent = 'Calling you...';
         btn.style.opacity = '0.6';
         status.style.display = 'block';
-        status.textContent = 'Maya is dialing your number — pick up when you see a call from a Maryland number.';
+        status.textContent = 'Maya is calling you now — pick up when you see a call from a Maryland number.';
 
         // n8n webhook that triggers ElevenLabs outbound call for website demos
         var webhookUrl = 'https://niloc29.app.n8n.cloud/webhook/maya-demo';
@@ -12066,7 +12066,7 @@
         })
         .then(function(res) {
           if (res.ok) {
-            status.textContent = 'Call initiated! Maya should be calling you in about 30 seconds.';
+            status.textContent = 'Call initiated! Maya should be calling you now.';
             status.style.color = 'var(--green)';
           } else {
             throw new Error('Request failed');
